@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{courier}
+\usepackage{setspace}
+
+\title{ My first document}
+\date{2020/11/09}
+\author{Steven Huang}
+
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+\newpage
+
+\doublespacing
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{section1}
+Hello World!
+
+\subsection{Subsection}
+Subsection paragraph
+
+\subsubsection{Subsubsection}
+ddddddd
+
+
+\addtocontents{toc}{\setcounter{tocdepth}{1}} % Set depth to 1
+\section{Another section}
+\subsection{Subsection}
+\subsubsection{Subsubsection}
+%...
+\addtocontents{toc}{\setcounter{tocdepth}{3}} 
+
+\section{section2}
+\section{section3}
+\section{conclusion}
+\section{references}
+\end{document}
