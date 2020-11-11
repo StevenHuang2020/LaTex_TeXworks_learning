@@ -1,15 +1,17 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{courier}
-
-\title{ My first document}
-\date{2020/11/09}
-\author{Steven Huang}
+\usepackage{siunitx} % Required for alignment
+\sisetup{
+  round-mode          = places, % Rounds numbers
+  round-precision     = 2, % to 2 places
+}
+\usepackage{multirow} % Required for multirows
+\usepackage{booktabs} % For prettier tables
+\usepackage{longtable} % To display tables on several pages
+\usepackage{rotating} % To display tables in landscape
 
 \begin{document}
-\pagenumbering{gobble}
-\maketitle
-\newpage
 \pagenumbering{arabic}
 
 \section{section1}
@@ -19,15 +21,165 @@ Hello World!
   \begin{center}
     \caption{Your first table.}
     \label{tab:table1}
-    \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+    %\begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+    \begin{tabular}{l|S|r}
       \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
       $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
       1 & 1110.1 & a\\
       2 & 10.1 & b\\
-      3 & 23.113231 & c\\
+      3 & 23.113231 & c\\	
+	4 & 25.113231 & d\\ % <-- added row here
     \end{tabular}
   \end{center}
 \end{table}
+
+%add column
+\begin{table}[h!]
+  \begin{center}
+    \caption{More columns.}
+    \label{tab:table1}
+    \begin{tabular}{l|S|r|l}
+      \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3} & \textbf{Value 4}\\ % <-- added & and content for each column
+      $\alpha$ & $\beta$ & $\gamma$ & $\delta$ \\ % <--
+      \hline
+      1 & 1110.1 & a & e\\ % <--
+      2 & 10.1 & b & f\\ % <--
+      3 & 23.113231 & c & g\\ % <--
+    \end{tabular}
+  \end{center}
+\end{table}
+
+%mult-row combine
+\begin{table}[h!]
+  \begin{center}
+    \caption{Multirow table.}
+    \label{tab:table1}
+    \begin{tabular}{l|S|r}
+      \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      \multirow{2}{*}{12} & 1110.1 & a\\ % <-- Combining 2 rows with arbitrary with (*) and content 12
+      & 10.1 & b\\ % <-- Content of first column omitted.
+      \hline
+      3 & 23.113231 & c\\
+      4 & 25.113231 & d\\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+%mult-column combine
+\begin{table}[h!]
+  \begin{center}
+    \caption{Multicolumn table.}
+    \label{tab:table1}
+    \begin{tabular}{l|S|r}
+      \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      \multicolumn{2}{c|}{12} & a\\ % <-- Combining two cells with alignment c| and content 12.
+      \hline
+      2 & 10.1 & b\\
+      3 & 23.113231 & c\\
+      4 & 25.113231 & d\\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+%mult-row  mult-column combine
+\begin{table}[h!]
+  \begin{center}
+    \caption{Multirow and -column table.}
+    \label{tab:table1}
+    \begin{tabular}{l|S|r}
+      \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      \multicolumn{2}{c|}{\multirow{2}{*}{1234}} & a\\ % <-- Multicolumn spanning 2 columns, content multirow spanning two rows
+      \multicolumn{2}{c|}{} & b\\ % <-- Multicolumn spanning 2 columns with empty content as placeholder
+      \hline
+      3 & 23.113231 & c\\
+      4 & 25.113231 & d\\
+	5 & 23.113231 & c\\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+%pretty
+\begin{table}[h!]
+  \begin{center}
+    \caption{Table using booktabs.}
+    \label{tab:table1}
+    \begin{tabular}{l|S|r}
+      \toprule % <-- Toprule here
+      \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+      $\alpha$ & $\beta$ & $\gamma$ \\
+      \midrule % <-- Midrule here
+      1 & 1110.1 & a\\
+      2 & 10.1 & b\\
+      3 & 23.113231 & c\\
+	4 & 23.113231 & c\\
+      \bottomrule % <-- Bottomrule here
+    \end{tabular}
+  \end{center}
+\end{table}
+
+%long tables
+\section{55}
+hhhhhhhhh
+jhhhhhhh
+hsadasdas
+sadsadsa
+adssadas
+dasdsadsad
+adsasdsa
+adsasdsadsa
+asdsad
+
+\begin{longtable}[c]{l|S|r} % <-- Replaces \begin{table}, alignment must be specified here (no more tabular)
+  \caption{Multipage table.}
+  \label{tab:table1}\\
+  \toprule
+  \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+  $\alpha$ & $\beta$ & $\gamma$ \\
+  \midrule
+  \endfirsthead % <-- This denotes the end of the header, which will be shown on the first page only
+  \toprule
+  \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+  $\alpha$ & $\beta$ & $\gamma$ \\
+  \midrule
+  \endhead % <-- Everything between \endfirsthead and \endhead will be shown as a header on every page
+  1 & 1110.1 & a\\
+  2 & 10.1 & b\\
+  % ...
+  % ... Many rows in between
+  % ...
+  3 & 23.113231 & c\\
+  4 & 23.113231 & c\\
+  5 & 23.113231 & c\\
+  6 & 23.113231 & c\\
+  7 & 23.113231 & c\\
+  8 & 23.113231 & c\\
+  9 & 23.113231 & c\\
+  \bottomrule
+\end{longtable}
+
+%sideway tables
+\begin{sidewaystable}[h!] % <--
+  \begin{center}
+  \caption{Landscape table.}
+  \label{tab:table1}
+  \begin{tabular}{l|S|r}
+  	\toprule
+  	\textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+  	$\alpha$ & $\beta$ & $\gamma$ \\
+    \midrule
+    1 & 1110.1 & a\\
+    2 & 10.1 & b\\
+    3 & 23.113231 & c\\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+\end{sidewaystable}
 
 \end{document}
