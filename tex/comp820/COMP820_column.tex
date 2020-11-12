@@ -10,6 +10,7 @@
 \graphicspath{{res/}}
 \usepackage{subcaption}
 %\usepackage{natbib}
+\usepackage{multicol}
 
 
 %%%%%%%%%%%%%%%%%%%  Fonts  %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,7 +30,7 @@
 \title{Pedestrian segmentation based on U-net.}
 %\date{2020/11/09}
 \date{}
-\author{Steven Huang (Student ID: 19050155)}
+\author{Tom Hanks (Student ID: xxxxxxxxx)}
 
 %%%%%%%%%%%%%%%%%%%  Body begin  %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -37,7 +38,8 @@
 	\maketitle
 	\newpage
 	\pagenumbering{arabic}
-
+ 	
+	\begin{multicols}{2}
 %%%%%%%%%%%%%%%%%%%  Abstract  %%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{abstract} \justify %abstract
 Image segmentation is a basic task of computer vision for image recognition and understanding. It’s the pre-program for recognizing and understanding an image. The effect of image segmentation is self-evident for understanding the image. The accuracy and effectiveness of image segmentation are of great significance to the development of intelligent computer vision. This article will review some commonly used and popular image segmentation algorithms and will show pedestrian segmentation experiments project based on U-Net. Project source code available at my github channel\footnote{\label{}\url{https://github.com/StevenHuang2020/Pedestrian-Segmentation}}.
@@ -158,5 +160,5 @@ Image segmentation is a basic task of computer vision for image recognition and 
 		}{  \end{oldthebibliography} 
 		}
 
-
+	\end{multicols}
 \end{document}
