@@ -54,7 +54,14 @@ L(x) &= \int^a_b \frac{1+x}{1+x^2}\sqrt{x}e^2\\
 f(x) &= \frac{1}{d \sqrt{2*p}}\\
 f(x) &= \left( \frac{1}{d \sqrt{2*p}} \right)\\
 f(x) &= \left[ \frac{1}{d \sqrt{2*p}} \right]\\
-f(x) &= \left\{ \frac{1}{d \sqrt{2*p}} \right\}
+f(x) &= \left\{ \frac{1}{d \sqrt{2*p}} \right\}\\
+\\
+F(x) = \int_{a}^{b}\left( \sum_{n=1}^{+\infty}u_{n}(x) \right)\,\mathrm{d}x
+    =\sum_{n=1}^{+\infty}\int_{a}^{b}u_{n}(x)\,\mathrm{d}x \\
+\\
+\\
+Loss(y_true, y_pred) &= \frac{1}{x}\\
+Loss(y_{true}, y_{pred}) &= 1 - \frac{2\sum_{pixel}y_{true}y_{pred} + smooth }{\sum_{pixel}y_{true}^2 + \sum_{pixel}y_{pred}^2 + smooth}\\
 \end{align}
 
 \section{section4-matrixs}
