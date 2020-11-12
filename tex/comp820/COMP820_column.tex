@@ -1,4 +1,4 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass[10pt, a4paper]{article}
 %%%%%%%%%%%%%%%%%%%  Global Defines  %%%%%%%%%%%%%%%%%%%%%
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -11,7 +11,12 @@
 \usepackage{subcaption}
 %\usepackage{natbib}
 \usepackage{multicol}
+\usepackage{geometry}
+\usepackage{wrapfig}
+\usepackage{lipsum}
 
+%\geometry{legalpaper, landscape, margin=2in}
+\geometry{legalpaper, margin=0.7in}
 
 %%%%%%%%%%%%%%%%%%%  Fonts  %%%%%%%%%%%%%%%%%%%%%%%%%%
 % https://tug.org/FontCatalogue/sansseriffonts.html
@@ -30,13 +35,13 @@
 \title{Pedestrian segmentation based on U-net.}
 %\date{2020/11/09}
 \date{}
-\author{Tom Hanks (Student ID: xxxxxxxxx)}
+\author{Tom Hanks \\ Student ID: xxxxxxxxx}
 
 %%%%%%%%%%%%%%%%%%%  Body begin  %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 	\pagenumbering{gobble}
 	\maketitle
-	\newpage
+	%\newpage
 	\pagenumbering{arabic}
  	
 	\begin{multicols}{2}
@@ -62,19 +67,21 @@ Image segmentation is a basic task of computer vision for image recognition and 
 
 %%%%%%%%%%%%%%%%%%%  Section 2 U-net Model %%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{U-net Model} \justify
-	\begin{figure}[h!] %[htb] %[h!]
-       \centering
+	\begin{figure*} %[htb] %[h!]
+        \centering
 	  \includegraphics[width=0.5\linewidth]{Capture.PNG}
-	  \caption{U-Net Architecture.}
+	  \caption{U-Net Architecture \cite{ronneberger2015u}.}
 	  \label{fig:Unet}
-	\end{figure}
+	\end{figure*}
 
 	The experiment model is borrowed from the U-Net model and the architecture of the U-Net model is shown in Figure \ref{fig:Unet}. The input of the model is modified to 255x255x1, and the output is a segmentation mask image of the same size. The model uses only convolutional layers and removes fully connected layers and uses convolution and deconvolution layers at different scales to increase the ability to recognize objects of different scales. The last convolutional layer uses sigmoid as the activation function. The loss function uses Dice loss which defined as follows,
-	\begin{normalsize} %tiny scriptsize footnotesize small normalsize large Large LARGE huge Huge
-	\begin{align}
-	Loss(y_{true}, y_{pred}) &= 1 - \frac{2\sum_{pixels}y_{true}y_{pred} + smooth }{\sum_{pixels}y_{true}^2 + \sum_{pixels}y_{pred}^2 + smooth}
-	\end{align}
-	\end{normalsize}
+	%\begin{footnotesize} %tiny scriptsize footnotesize small normalsize large Large LARGE huge Huge
+	\begin{equation}
+	\begin{aligned}
+	Loss(y_{true}, y_{pred}) = \\1 - \frac{2\sum_{pixels}y_{true}y_{pred} + smooth }{\sum_{pixels}y_{true}^2 + \sum_{pixels}y_{pred}^2 + smooth}
+	\end{aligned}
+	\end{equation}
+	%\end{footnotesize}
 	\par
 	Where smooth=1, only used to avoid the denominator being equal to zero. The numerator part in the loss equation stands for the intersection of the prediction and the ground truth label, whereas the denominator part represents the union of these two vectors.
 
@@ -82,12 +89,12 @@ Image segmentation is a basic task of computer vision for image recognition and 
 %%%%%%%%%%%%%%%%%%%  Section 3 Dataset and Augmentation %%%%%%%%%%%%%%%%%%%
 	\section{Dataset and Augmentation} \justify
 	The pedestrian benchmark Penn-Fudan dataset\footnote{\label{}\url{https://www.cis.upenn.edu/~jshi/ped_html/}} will be used in my project. The data set contains 170 images, and each photo contains one or more pedestrian annotations. These photos were taken randomly from the road around the university campus. All images are three-channel colour images in PNG format, and the annotation information contains the bounding box and pedestrians’ segmentation mask. Only segmentation mask information was used in this project.
-	\begin{figure}[h!] %[htb] %[h!]
+	\begin{figure*}[htb] %[h!]
        \centering
 	  \includegraphics[width=0.5\linewidth]{dataset.png}
 	  \caption{Augmentation by cropping, flipping, and colour conversion.}
 	  \label{fig:augmentation}
-	\end{figure}
+	\end{figure*}
 
 	\par
 	It is difficult to drive the CNN model due to the sample sizes are relatively small, some appropriate methods must be used for image augmentation. These methods include resizing, cropping, flipping and colour conversion. The label segmentation mask needs to be modified at the same time while generating new images. Colour conversion using RGB channel separation, blur operation, brightness and contrast adjustment, gamma correction method, etc. Figure \ref{fig:augmentation} shows different methods for image augmentation and the corresponding results. The number of images is expanded to 34680 from only 170 after using the above methods.
@@ -95,22 +102,30 @@ Image segmentation is a basic task of computer vision for image recognition and 
 %%%%%%%%%%%%%%%%%%%  Section 4 Training and Result analyses%%%%%%%%%%%%%%%%%%
 	\section{Training and Result analyses } \justify
 	
-	\begin{figure}[h!]
+%	\begin{wrapfigure}{l}{0.7\linewidth}
+%	\includegraphics[width=\linewidth]{Figure_1.png}
+%	\caption{This is the former Share\LaTeX{} logo}
+%	\end{wrapfigure}
+	
+	\lipsum[1-3]
+	\begin{figure*}[htb] %[h!]
 	  \centering
-	  \begin{subfigure}[b]{0.45\linewidth}
+	  \begin{subfigure}[b]{0.3\linewidth}
 	    \includegraphics[width=\linewidth]{Figure_1.png}
 	    \caption{Loss.}
 	  \end{subfigure}
-	  \begin{subfigure}[b]{0.45\linewidth}
+	  \begin{subfigure}[b]{0.3\linewidth}
 	    \includegraphics[width=\linewidth]{Figure_2.png}
 	    \caption{Accuracy.}
 	  \end{subfigure}
 	  \caption{Loss and accuracy of the first 100 epochs.}
 	  \label{fig:training}
-	\end{figure}
+	\end{figure*}
+	\lipsum[4]
 
 	The experiment was developed in python and OpenCV-python library and the model trained on Google Collaboratory (GPU). The augmented dataset is divided into two parts before training, 70 percent of them is the training set, and the rest is the test set. Accuracy measurement uses intersection over union (IOU). Figure \ref{fig:training} shows the loss and accuracy of the first 100 epochs on the training set and the test set respectively. After thousands of epochs, loss on the training set are reached -0.2689 and the accuracy reached to 0.8978. Figure \ref{fig:result1} and Figure \ref{fig:result2} respectively demonstrates the pedestrian segmentation effect on different images.
-	\begin{figure}[h!]
+	\lipsum[1-3]
+	\begin{figure*}[htb] %[h!]
 	  \centering
 	  \begin{subfigure}[b]{0.45\linewidth}
 	    \includegraphics[width=\linewidth]{predictMask1.png}
@@ -122,9 +137,11 @@ Image segmentation is a basic task of computer vision for image recognition and 
 	  \end{subfigure}
 	  \caption{Detection effect of images form dataset.}
 	  \label{fig:result1}
-	\end{figure}
+	\end{figure*}
+	\lipsum[4]
 
-	\begin{figure}[h!]
+	\lipsum[1-3]
+	\begin{figure*}[htb] %[h!]
 	  \centering
 	  \begin{subfigure}[b]{0.45\linewidth}
 	    \includegraphics[width=\linewidth]{predict1.png}
@@ -136,29 +153,30 @@ Image segmentation is a basic task of computer vision for image recognition and 
 	  \end{subfigure}
 	  \caption{Detection effect of images not in dataset.}
 	  \label{fig:result2}
-	\end{figure}
+	\end{figure*}
+	\lipsum[4]
 
 %%%%%%%%%%%%%%%%%%%  Section 5 Conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Conclusion} \justify
 	According to the results of the experiment, 1) Segmentation for small pedestrians and overlapping pedestrians is not good. 2) The segmentation effect on images with very different scenes from the training samples is poor. The experimental results show that U-Net is effective in pedestrian segmentation tasks. However, due to the limitations of training time and hardware capabilities, the segmentation accuracy has room for further improvement. In addition, the training samples' scene of the dataset is all college students around the university, which may limit the versatility and robustness of the model.
 
 %%%%%%%%%%%%%%%%%%%  References %%%% %%%%%%%%%%%%%%%%%%%%%%%%%%
-	\newpage
+	%\newpage
 	\pagenumbering{gobble}
 	\bibliography{comp820}
 	\bibliographystyle{ieeetr}  
 	%\bibliographystyle{apalike}
 	%\setlength{\bibsep}{0.0pt}
 	
-	\let\oldthebibliography\thebibliography
-	\let\endoldthebibliography\endthebibliography
-	\renewenvironment{thebibliography}[1]
-		{
-	 	 \begin{oldthebibliography}{#1}
-	    \setlength{\itemsep}{10.0em}
-	    \setlength{\parskip}{10em}
-		}{  \end{oldthebibliography} 
-		}
+%%	\let\oldthebibliography\thebibliography
+%%	\let\endoldthebibliography\endthebibliography
+%%	\renewenvironment{thebibliography}[1]
+%%	{
+%% 	 \begin{oldthebibliography}{#1}
+%%    		\setlength{\itemsep}{10.0em}
+%%    		\setlength{\parskip}{10em}
+%%	}{  \end{oldthebibliography} 
+%%	}
 
 	\end{multicols}
 \end{document}

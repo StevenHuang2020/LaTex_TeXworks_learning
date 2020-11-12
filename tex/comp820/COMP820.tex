@@ -10,7 +10,13 @@
 \graphicspath{{res/}}
 \usepackage{subcaption}
 %\usepackage{natbib}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{wrapfig}
+\usepackage{lipsum}
 
+%\geometry{legalpaper, landscape, margin=2in}
+\geometry{legalpaper, margin=1in}
 
 %%%%%%%%%%%%%%%%%%%  Fonts  %%%%%%%%%%%%%%%%%%%%%%%%%%
 % https://tug.org/FontCatalogue/sansseriffonts.html
@@ -29,15 +35,16 @@
 \title{Pedestrian segmentation based on U-net.}
 %\date{2020/11/09}
 \date{}
-\author{Tom Hanks (Student ID: xxxxxxxxx)}
+\author{Tom Hanks \\ Student ID: xxxxxxxxx}
 
 %%%%%%%%%%%%%%%%%%%  Body begin  %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 	\pagenumbering{gobble}
 	\maketitle
-	\newpage
+	%\newpage
 	\pagenumbering{arabic}
-
+ 	
+	%\begin{multicols}{2}
 %%%%%%%%%%%%%%%%%%%  Abstract  %%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{abstract} \justify %abstract
 Image segmentation is a basic task of computer vision for image recognition and understanding. It’s the pre-program for recognizing and understanding an image. The effect of image segmentation is self-evident for understanding the image. The accuracy and effectiveness of image segmentation are of great significance to the development of intelligent computer vision. This article will review some commonly used and popular image segmentation algorithms and will show pedestrian segmentation experiments project based on U-Net. Project source code available at my github channel\footnote{\label{}\url{https://github.com/StevenHuang2020/Pedestrian-Segmentation}}.
@@ -56,23 +63,26 @@ Image segmentation is a basic task of computer vision for image recognition and 
 	%\setlength{\parindent}{5ex}   
 	Many machine learning (ML) algorithms are more versatile and accurate than previous traditional algorithms, often used for image segmentation. Image segmentation can be regarded as a classification problem, and the goal is to classify different pixels in one image into classes belonging to different objects. It should be noted that the classification model requires some labelled samples to learn the appropriate parameters for effective object segmentation. Numerous classification models such as Decision Tree (DT), Logistic regression, Support Vector Machines (SVM), Multi-layer Perceptron (MLP), etc. are all applied to various classification tasks \cite{pedregosa2011scikit}. Liu et al. \cite{liu2006region} proposed a decision tree based semantic segmentation image retrieval system, which optimizes the tree pruning process and improves performance. Mizushima and Lu \cite{mizushima2013image} demonstrated an effective algorithm for classifying and grading apples using image segmentation based on SVM and Otsu’s thresholding method, with an error rate less than 2 percent. On the other hand, the clustering model can be selected to do image segmentation tasks when there are no labeled samples. Common clustering algorithms include K-Means, Agglomerative clustering, DBSCAN, OPTICS, etc. The fastest, simplest and efficient K-Means algorithm, due to its linear time complexity, is particularly suitable for clustering large-scale data sets. However, the clustering numbers parameters required by this algorithm must be determined through accurate measurements. Ray and Turi \cite{ray1999determination} proposed an algorithm based on distance measurement within and between clusters, which can automatically calculate the number of clusters.
 	\par
-	Due to its high accuracy and strong versatility, Deep learning is the current new generation algorithms for generic image segmentation. Unlike the previous algorithms are basically based on the pixel level, the deep learning algorithm performs image segmentation rely on automatically extracted semantic features, which significantly increases robustness and accuracy. According to the research of Minaee et al. \cite{minaee2020image}, the current classic CNN models for semantic segmentation include fully convolutional network (FCN), SegNet, U-Net, V-net, etc. The end-to-end fully convolutional network FCN obtains good segmentation results on the PASCAL VOC data set by changing the fully connected layer in the current excellent image classification neural network \cite{long2015fully}. Noh et al. \cite{noh2015learning} proposed a convolutional network based on Encoder-Decoder that includes transpose convolution and unpooling layers, which alleviates the limitations of FCN. The other encoder-decoder model, the Segnet, which directly uses the pooling indices of the previous max-pooling layer in the encode upsampling stage, thereby effectively reducing the inference time\cite{badrinarayanan2017segnet}. Ronneberger, et al. \cite{ronneberger2015u} proposed the U-Net model inspired by the previous FCN and encoder-decoder architecture model and achieved good performance on the medical image segmentation task. Milletari et al. \cite{milletari2016v} proposed V-net, a fully CNN model based on U-net and successfully segment 3D MRI prostate medical images. 
+	Due to its high accuracy and strong versatility, Deep learning is the current new generation algorithms for generic image segmentation. Unlike the previous algorithms are basically based on the pixel level, the deep learning algorithm performs image segmentation rely on automatically extracted semantic features, which significantly increases robustness and accuracy. According to the research of Minaee et al. \cite{minaee2020image}, the current classic CNN models for semantic segmentation include fully convolutional network (FCN), SegNet, U-Net, V-net, etc. The end-to-end fully convolutional network FCN obtains good segmentation results on the PASCAL VOC data set by changing the fully connected layer in the current excellent image classification neural network \cite{long2015fully}. Noh et al. \cite{noh2015learning} proposed a convolutional network based on Encoder-Decoder that includes transpose convolution and unpooling layers, which alleviates the limitations of FCN. The other encoder-decoder model, the Segnet, which directly uses the pooling indices of the previous max-pooling layer in the encode upsampling stage, thereby effectively reducing the inference time \cite{badrinarayanan2017segnet}. Ronneberger, et al. \cite{ronneberger2015u} proposed the U-Net model inspired by the previous FCN and encoder-decoder architecture model and achieved good performance on the medical image segmentation task. Milletari et al. \cite{milletari2016v} proposed V-net, a fully CNN model based on U-net and successfully segment 3D MRI prostate medical images. 
 
 %%%%%%%%%%%%%%%%%%%  Section 2 U-net Model %%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{U-net Model} \justify
 	\begin{figure}[h!] %[htb] %[h!]
        \centering
 	  \includegraphics[width=0.5\linewidth]{Capture.PNG}
-	  \caption{U-Net Architecture.}
+	  \caption{U-Net Architecture \cite{ronneberger2015u}.}
 	  \label{fig:Unet}
 	\end{figure}
 
 	The experiment model is borrowed from the U-Net model and the architecture of the U-Net model is shown in Figure \ref{fig:Unet}. The input of the model is modified to 255x255x1, and the output is a segmentation mask image of the same size. The model uses only convolutional layers and removes fully connected layers and uses convolution and deconvolution layers at different scales to increase the ability to recognize objects of different scales. The last convolutional layer uses sigmoid as the activation function. The loss function uses Dice loss which defined as follows,
-	\begin{normalsize} %tiny scriptsize footnotesize small normalsize large Large LARGE huge Huge
-	\begin{align}
-	Loss(y_{true}, y_{pred}) &= 1 - \frac{2\sum_{pixels}y_{true}y_{pred} + smooth }{\sum_{pixels}y_{true}^2 + \sum_{pixels}y_{pred}^2 + smooth}
-	\end{align}
-	\end{normalsize}
+	%\begin{footnotesize} %tiny scriptsize footnotesize small normalsize large Large LARGE huge Huge
+	\begin{equation}
+	\begin{aligned}
+	%Loss(y_{true}, y_{pred}) = \\1 - \frac{2\sum_{pixels}y_{true}y_{pred} + smooth }{\sum_{pixels}y_{true}^2 + \sum_{pixels}y_{pred}^2 + smooth}
+	Loss(y_{true}, y_{pred}) = 1 - \frac{2\sum_{pixels}y_{true}y_{pred} + smooth }{\sum_{pixels}y_{true}^2 + \sum_{pixels}y_{pred}^2 + smooth}
+	\end{aligned}
+	\end{equation}
+	%\end{footnotesize}
 	\par
 	Where smooth=1, only used to avoid the denominator being equal to zero. The numerator part in the loss equation stands for the intersection of the prediction and the ground truth label, whereas the denominator part represents the union of these two vectors.
 
@@ -148,15 +158,15 @@ Image segmentation is a basic task of computer vision for image recognition and 
 	%\bibliographystyle{apalike}
 	%\setlength{\bibsep}{0.0pt}
 	
-	\let\oldthebibliography\thebibliography
-	\let\endoldthebibliography\endthebibliography
-	\renewenvironment{thebibliography}[1]
-		{
-	 	 \begin{oldthebibliography}{#1}
-	    \setlength{\itemsep}{10.0em}
-	    \setlength{\parskip}{10em}
-		}{  \end{oldthebibliography} 
-		}
+%%	\let\oldthebibliography\thebibliography
+%%	\let\endoldthebibliography\endthebibliography
+%%	\renewenvironment{thebibliography}[1]
+%%	{
+%% 	 \begin{oldthebibliography}{#1}
+%%    		\setlength{\itemsep}{10.0em}
+%%    		\setlength{\parskip}{10em}
+%%	}{  \end{oldthebibliography} 
+%%	}
 
-
+	%\end{multicols}
 \end{document}

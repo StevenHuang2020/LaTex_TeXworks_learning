@@ -7,3 +7,6 @@ https://www.latex-tutorial.com/tutorials/ <br/>
 Mathematical： <br/>
 https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols <br/>
 https://en.wikibooks.org/wiki/LaTeX/Mathematics
+
+Compiler: <br/>
+pdfLaTeX and BibTeX.
