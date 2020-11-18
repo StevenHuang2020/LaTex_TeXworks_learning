@@ -1,0 +1,80 @@
+%\documentclass[12pt, a4paper]{article}  %a4paper  legalpaper letterpaper
+%\documentclass[12pt, a4paper]{IEEEtran} %article IEEEtran proc report book slides memoir letter beamer
+\documentclass[10pt, a4paper,twocolumn,notitlepage]{article} %twoside oneside landscape draft landscape titlepage notitlepage twocolumn
+%\documentclass[10pt, a4paper,titlepage]{article} %t
+
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+\usepackage[document]{ragged2e}  %text alignment
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Overleaf}
+\lhead{Guides and tutorials}
+\rfoot{Page \thepage}
+
+%%------------------------fonts-----------------------------
+%\renewcommand{\familydefault}{\sfdefault} %san fonts
+%\renewcommand{\familydefault}{\rmdefault} %roman fonts
+
+\usepackage{fontspec} %xetex compiler
+%\setromanfont{Times New Roman}
+%\setsansfont{Arial}
+\setmonofont[Color={0010D4}]{Courier New}
+
+\title{First document}
+\author{Steven Huang \thanks{funded by the Overleaf team}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%\setlength{\baselineskip}{2em} %Vertical distance between lines in a paragraph
+%\setlength{\columnsep}{18em} %Distance between columns
+%\setlength{\columnwidth}{2em} %The width of a column
+%\setlength{\evensidemargin}{2em} %Margin of even pages, commonly used in two-sided documents such as books
+%\setlength{\oddsidemargin}{2em}%Margin of odd pages, commonly used in two-sided documents such as books
+%\setlength{\linewidth}{2em} %Width of the line in the current environment.
+%\setlength{\paperwidth}{20em} %Width of the page
+%\setlength{\paperheight}{2em} %Height of the page
+%\setlength{\parindent}{2em} %Paragraph indentation
+%\setlength{\parskip}{0em} %Vertical space between paragraphs
+%\setlength{\tabcolsep}{2em} %Separation between columns in a table (tabular environment)
+%\setlength{\textheight}{2em} %Height of the text area in the page
+%\setlength{\textwidth}{2em} %Width of the text area in the page
+%\setlength{\topmargin}{2em} %Length of the top margin
+
+\section{part1}
+We have \textbf{now} added a title, \underline{author} and date to our \textbf{\textit{first}}  \LaTeX{V1} document!  LATEX is used all over the world for scientific documents, books, as well as many other forms of publishing. {\tiny Not only can it create beautifully} typeset documents, but it allows users to very quickly tackle the more complicated parts of typesetting, such as inputting mathematics, creating tables of \textsc{contents, referencing and creating bibliographies}, and having a consistent layout across all sections. Due to the huge number of open source packages available (more on this later), the possibilities with {\huge LATEX} are endless. \par These {\footnotesize packages allow users} to do even more with \Large{\textit{LATEX}}, such as add footnotes, draw schematics, create tables etc. One of the most important reasons people use LATEX is that it separates the content of the document from the style. This means that once you have written the content of your document, we can change its appearance with ease. Similarly, you can create one style of document which can be used to standardise the appearance of many different documents. This allows scientific journals to create templates for submissions. These templates have a pre-made layout meaning that only the content needs to be added. In fact there are hundreds of templates available for everything from CVs to slideshows.
+
+\begin{flushleft}
+Hello, here is some text without a meaning.  This text should show what  a printed text will look like at this place.  If you read this text, you will get no information.  Really?  Is there no information?  Is there 
+a difference between this text and some nonsense like not at all! 
+\end{flushleft}
+
+\begin{flushright}
+Hello, here is some text without a meaning.  This text should show what  a printed text will look like at this place.  If you read this text, you will get no information.  Really?  Is there no information?  Is there 
+a difference between this text and some nonsense like not at all! 
+\end{flushright}
+
+\begin{center}
+Hello, here is some text without a meaning.  This text should show what  a printed text will look like at this place.  If you read this text, you will get no information.  Really?  Is there no information?  Is there 
+a difference between this text and some nonsense like not at all! 
+\end{center}
+
+\lipsum[1-2]
+
+\section{part2} \justify
+\lipsum[3-7]
+
+\section{Conclusion}\justify
+\lipsum[8-10]
+
+\section{Reference}\justify
+\lipsum[9]
+
+
+\end{document}

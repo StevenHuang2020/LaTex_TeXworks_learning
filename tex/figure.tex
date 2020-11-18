@@ -2,6 +2,9 @@
 \usepackage{graphicx}
 \graphicspath{{res/}}
 \usepackage{subcaption}
+\usepackage{url}
+\usepackage{afterpage}
+
 
 \title{ Latex Figures}
 \date{2020/11/09}
@@ -16,14 +19,16 @@
 \section{figure1}
 Hello World!
 \section{figure2}
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{autoThres.png}
+\begin{figure}[htb!] %[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{autoThres.png}
   \caption{Auto binary threshold method.}
   \label{fig:bin1}
 \end{figure}
 
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{otsu.png}
+\begin{figure}[htb!] %[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{otsu.png}
   \caption{Otsu threshold method.}
   \label{fig:Otsu1}
 \end{figure}
@@ -34,7 +39,7 @@ Figure \ref{fig:Otsu1} shows the otsu method.
 \section{sub-figure1}
 Here will show tow images next to each other.
 
-\begin{figure}[h!]
+\begin{figure}[htb!] %[h!]
   \centering
   \begin{subfigure}[b]{0.45\linewidth}
     \includegraphics[width=\linewidth]{autoThres.png}
@@ -49,8 +54,8 @@ Here will show tow images next to each other.
 \end{figure}
 
 \section{sub-figure2}
-More conloex align figures.
-\begin{figure}[h!]
+More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.More conloex align figures.
+\begin{figure}[htb!] %[h!]
   \centering
   \begin{subfigure}[b]{0.4\linewidth}
     \includegraphics[width=\linewidth]{autoThres.png}
@@ -71,5 +76,32 @@ More conloex align figures.
   \caption{The same cup of coffee. Multiple times.}
   \label{fig:coffee3}
 \end{figure}
+
+\newpage
+
+\section{caption footnode}
+And this is the Yolo url\footnote{\label{bbb}\url{https://www.google.com/}}.
+
+\begin{figure}[htb!]
+  \begin{center}
+    \includegraphics[scale=0.6]{autoThres.png}
+      \caption[The LOF caption]{Lorem ipsum. {This image is taken from somewhere\footnote{Source: \url{http://www.example.com/the_image.png}}}}
+    \label{fig:cited_img}
+    \end{center}
+\end{figure}
+
+\begin{figure}
+   \centering
+    \includegraphics[scale=0.6]{autoThres.png}
+   \caption[Caption for LOF]{Real caption\protect\footnotemark}
+\end{figure}
+%\footnotetext{autoThres}
+
+\begin{figure}
+   \centering
+    \includegraphics[scale=0.6]{otsu.png}
+   \caption[Caption for LOF]{Real caption\protect\footnotemark}
+\end{figure}
+\footnotetext{otsu}
 
 \end{document}
