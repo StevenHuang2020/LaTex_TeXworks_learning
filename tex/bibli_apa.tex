@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+%\usepackage{courier}
+%\usepackage{times}
+\usepackage{helvet} %arial
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[dvipsnames]{xcolor} %font color
+
+%%%%%%%%%%%%%%%%%%% Citation & Bibliography custom%%%%%%%%%%%%%%%
+%citestyle=numeric  numeric-comp numeric-verb alphabetic alphabetic-verb authoryear chem-acs phys (*)  nature science ieee chicago-authordate mla apa ...   #https://www.overleaf.com/learn/latex/Biblatex_citation_styles 
+%style=numeric alphabetic authoryear authoryear-icomp apa bwl-FU chem-acs chem-angew ieee mla nature science ... #https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
+\usepackage[backend=biber, style=apa, citestyle=apa]{biblatex} %compile Biber
+%\usepackage[backend=biber, bibstyle=numeric, citestyle=apa]{biblatex}
+\addbibresource{comp820.bib}
+
+
+\title{ My first document}
+\date{2020/11/10}
+\author{Steven Huang}
+
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+%\newpage
+\pagenumbering{arabic}
+
+\textcolor{red}{Error APA citation format}. 
+Random citation \cite{otsu1979threshold} embeddeed in text.
+Random citation \cite{pedregosa2011scikit} embeddeed in text.
+Random citation \cite{liu2006region} embeddeed in text.
+Random citation \cite{mizushima2013image} embeddeed in text.
+Random citation \cite{ray1999determination} embeddeed in text.
+Random citation \cite{minaee2020image} embeddeed in text.
+
+\textcolor{green}{Right APA citation format}. 
+\textcite{long2015fully} embeddeed in text.
+Random citation \textcite{noh2015learning} embeddeed in text.
+Random citation \textcite{badrinarayanan2017segnet} embeddeed in text.
+Random citation \parencite{ronneberger2015u} embeddeed in text.
+Random citation embeddeed in text\parencite{milletari2016v}.
+
+\textcolor{green}{Right multi APA citation format}. 
+Random citation \parencite{milletari2016v,ronneberger2015u,noh2015learning} embeddeed in text.
+Random citation embeddeed in text \parencite{minaee2020image,ronneberger2015u} .
+%s\textcite{milletari2016v,ronneberger2015u,noh2015learning} embeddeed in text.
+
+
+\begin{table}[h!]
+	\caption{Citation command and effect.}
+	\begin{tabular}{ll}
+	   \hline
+	    \verb|\cite{pedregosa2011scikit}| & \cite{pedregosa2011scikit}\\
+	    \verb|\textcite{pedregosa2011scikit}| & \textcite{pedregosa2011scikit}\\
+	    \verb|\parencite{pedregosa2011scikit}| & \parencite{pedregosa2011scikit}\\
+	    \verb|\parencite[Kap.~4]{liu2006region}| & \parencite[Kap.~4]{liu2006region}\\
+	    \verb|\parencite[15]{liu2006region}| & \parencite[15]{liu2006region}\\
+	   \hline
+	\end{tabular}
+\end{table}
+
+\newpage
+\printbibliography
+
+\end{document}
